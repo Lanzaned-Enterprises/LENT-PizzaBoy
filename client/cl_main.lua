@@ -206,8 +206,47 @@ RegisterNetEvent('LENT-PizzaJob:Client:DrawWaypoint', function(coords)
     SetBlipRouteColour(DeliveryBlip, 5)
 end)
 
--- [[ Functions ]] --
+RegisterNetEvent('LENT-PizzaJob:Client:SendPhone', function(event, Sender, SUbject, Message)
+    if event == 'email' then
+        SendPhoneEmail(Sender, SUbject, Message)
+    end
+end)
 
+-- [[ Functions ]] --
+function SendPhoneEmail(Sender, Subject, Message)
+    local C = Config.QBCoreSettings['Phone']
+    if C == 'qb' then
+        TriggerServerEvent('qb-phone:server:sendNewMail', {
+            sender = Sender,
+            subject = Subject,
+            message = Message,
+        })
+    elseif C == 'gks' then
+        local MailData = {
+            sender = Sender,
+            image = '/html/static/img/icons/mail.png',
+            subject = Subject,
+            message = Message
+          }
+          exports["gksphone"]:SendNewMail(MailData)
+    elseif C == 'qs' then
+        TriggerServerEvent('qs-smartphone:server:sendNewMail', {
+            sender = Sender,
+            subject = Subject,
+            message = Message,
+        })
+    elseif C == 'npwd' then
+        exports["npwd"]:createNotification({
+            notisId = "LENT:EMAIL",
+            appId = "EMAIL",
+            content = Message,
+            secondaryTitle = Sender,
+            keepOpen = false,
+            duration = 5000,
+            path = "/email",
+        })
+    end
+end
 
 
 -- [[ Threads ]] --

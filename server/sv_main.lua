@@ -32,8 +32,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:StartJobProcess', function(source)
         ['Payment'] = 0,
     }
 
-    local coords = GetLocationInfo(src)
-    local payment = GetPaymentInfo(src)
+    local coords, payment = GetLocationInfo(src)
 
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation'] = coords
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] = payment
@@ -66,8 +65,7 @@ end)
 RegisterNetEvent('LENT-PizzaJob:Server:NewJob', function(source)
     local src = source
 
-    local coords = GetLocationInfo(src)
-    local payment = GetPaymentInfo(src)
+    local coords, payment = GetLocationInfo(src)
 
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation'] = coords
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] = payment
@@ -144,11 +142,15 @@ RegisterNetEvent('LENT-PizzaJob:Server:RemoveAllZones', function(PlayerCitizenId
 end)
 
 RegisterNetEvent('LENT-PizzaJob:Server:TipPlayer', function()
+    local src = source
     if Jobs[Player.PlayerData.citizenid] ~= nil then
         local Player = QBCore.Functions.GetPlayer(src)
 
-        Player.Functions.AddMoney('cash', Config.ResourceSettings['Payment']['TipsAmount'])
-        Notify('sv', "You just made: " .. Config.ResourceSettings['Payment']['TipsAmount'] .. " In tips!", "success", 2500)
+        local Tip = Config.ResourceSettings['Payment']['TipsAmount']
+
+        Player.Functions.AddMoney('cash', Tip)
+        Notify('sv', "You just made: " .. Tip .. " In tips!", "success", 2500)
+        TriggerClientEvent('LENT-PizzaJob:Client:SendPhone', src, 'email', 'Pizza This', 'Tips', 'You\'ve received: $' ..Tip.. ' from the customer! Put that in your pocket and keep it safe!')
     else
         return
     end
@@ -159,20 +161,11 @@ function GetLocationInfo(src)
     local src = source
     local _ = QBCore.Functions.GetPlayer(src)
 
-    local data = Config.ResourceSettings['DeliveryData'][1]
+    local data = Config.ResourceSettings['DeliveryData'][math.random(#Config.ResourceSettings['DeliveryData'])]
     local coords = data.Coords[math.random(#data.Coords)]
-
-    return coords
-end
-
-function GetPaymentInfo(src)
-    local src = source
-    local _ = QBCore.Functions.GetPlayer(src)
-
-    local data = Config.ResourceSettings['DeliveryData'][1]
     local payment = data.Payment
 
-    return payment
+    return coords, payment
 end
 
 -- [[ Threads ]] --

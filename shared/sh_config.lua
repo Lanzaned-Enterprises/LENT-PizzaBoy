@@ -36,17 +36,17 @@ Config.ResourceSettings = {
         },
     },
     ['DeliveryData'] = {
-        [1] = {
+        [1] = { -- [[ Vinewood ]] --
             Coords = {
-                -- [[ Vinewood ]] --
                 vector4(173.0, -25.89, 68.35, 348.12),
                 vector4(-165.69, 75.58, 71.09, 172.06),
                 vector4(-150.01, 123.93, 69.91, 329.69),
                 vector4(-159.71, 129.41, 70.23, 330.86),
-                -- [[ Rockford Hills ]] --
-                -- [[ Richman ]] --
-                -- [[ Davis ]] --
-                    -- Grove Street
+            },
+            Payment = math.random(500, 750)
+        },
+        [2] = {
+            Coords = { -- [[ Davis ]] --
                 vector4(101.07, -1912.27, 21.41, 339.03),
                 vector4(72.25, -1939.14, 21.37, 136.83),
                 vector4(76.94, -1949.32, 21.17, 138.81),
@@ -55,9 +55,6 @@ Config.ResourceSettings = {
                 vector4(23.11, -1896.9, 22.97, 139.47),
                 vector4(45.72, -1863.96, 23.28, 324.37),
                 vector4(-4.84, -1872.3, 24.15, 241.43),
-                -- [[ Rancho ]] --
-                -- [[ Murrieta Heights ]] --
-                -- [[ Mirror Park ]] --
             },
             Payment = math.random(200, 500),
         },

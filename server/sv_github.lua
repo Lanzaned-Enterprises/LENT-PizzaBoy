@@ -1,5 +1,5 @@
 --[[ Version Checker ]] --
-local version = "100"
+local version = "111"
 
 local DISCORD_WEBHOOK = ""
 local DISCORD_NAME = "LENT - Pizza This"
