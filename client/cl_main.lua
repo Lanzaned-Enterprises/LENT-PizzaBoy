@@ -35,7 +35,7 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
-RegisterNetEvent('LENT-PizzaBoy:Client:SendNotify', functioN(text, type, time)
+RegisterNetEvent('LENT-PizzaBoy:Client:SendNotify', function(text, type, time)
     Notify('cl', text, type, time)
 end)
 
