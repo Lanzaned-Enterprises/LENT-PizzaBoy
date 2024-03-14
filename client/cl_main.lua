@@ -206,9 +206,9 @@ RegisterNetEvent('LENT-PizzaJob:Client:DrawWaypoint', function(coords)
     SetBlipRouteColour(DeliveryBlip, 5)
 end)
 
-RegisterNetEvent('LENT-PizzaJob:Client:SendPhone', function(event, Sender, SUbject, Message)
+RegisterNetEvent('LENT-PizzaJob:Client:SendPhone', function(event, Sender, Subject, Message)
     if event == 'email' then
-        SendPhoneEmail(Sender, SUbject, Message)
+        SendPhoneEmail(Sender, Subject, Message)
     end
 end)
 

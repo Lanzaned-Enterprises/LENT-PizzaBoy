@@ -1,11 +1,11 @@
 --[[ Version Checker ]] --
-local version = "112"
+local version = "113"
 
 local DISCORD_WEBHOOK = ""
 local DISCORD_NAME = "LENT - Pizza This"
 local DISCORD_IMAGE = "https://cdn.discordapp.com/attachments/1026175982509506650/1026176123928842270/Lanzaned.png"
 
-local RESOURCE_NAME = "LENT-PizzaBoy"
+local RESOURCE_NAME = "LENT-PizzaBoy" -- DO NOT CHANCE THIS
 
 AddEventHandler("onResourceStart", function(resource)
     if resource == GetCurrentResourceName() then

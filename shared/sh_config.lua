@@ -1,3 +1,7 @@
+-- [[ QBCore ]] --
+local QBCore = exports['qb-core']:GetCoreObject()
+
+-- [[ Config ]] --
 Config = Config or {}
 
 Config.LENTSettings = {
