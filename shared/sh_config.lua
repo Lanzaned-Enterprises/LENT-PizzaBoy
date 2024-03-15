@@ -75,7 +75,7 @@ function Notify(clsv, text, type, time)
     local time = time or 2500
     if clsv == 'client' or clsv == 'cl' then
         if Config.QBCoreSettings['Notify'] == 'qb' then
-            QBCore.functions.Notify(text, type, time)
+            QBCore.Functions.Notify(text, type, time)
         elseif Config.QBCoreSettings['Notify'] == 'ps' then
             exports['ps-ui']:Notify(text, type, time)
         elseif Config.QBCoreSettings['Notify'] == 'custom' then
