@@ -22,6 +22,11 @@
     - Wait for the refresh to be done
 - type `/start LENT-PizzaBoy`
 
+### Add the job 
+```lua
+pizzaboy = { label = "Pizza This", defaultDuty = false, offDutyPay = false, grades = { ['0'] = { name = 'Driver', payment = 0, } } },
+```
+
 ## Issues
 |  Question |  Answer |
 |----       |----     |
