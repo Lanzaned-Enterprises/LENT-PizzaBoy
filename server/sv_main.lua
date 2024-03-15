@@ -32,7 +32,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:StartJobProcess', function(source)
         ['Payment'] = 0,
     }
 
-    local coords, payment = GetLocationInfo(src)
+    local coords, payment = GetLocationInfo()
 
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation'] = coords
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] = payment
@@ -65,7 +65,7 @@ end)
 RegisterNetEvent('LENT-PizzaJob:Server:NewJob', function(source)
     local src = source
 
-    local coords, payment = GetLocationInfo(src)
+    local coords, payment = GetLocationInfo()
 
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation'] = coords
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] = payment
@@ -81,7 +81,7 @@ end)
 RegisterNetEvent('LENT-PizzaJob:Server:CancelJob', function()
     local src = source
 
-    Jobs[Player] = nil
+    Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid] = nil
 
     TriggerClientEvent('LENT-PizzaJob:Client:ClearVehcile', src)
     TriggerClientEvent('LENT-PizzaJob:Client:ClearAll', src)
@@ -134,7 +134,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:GetPayment', function(source, JobsDone)
         Player.Functions.AddMoney('cash', check, 'Pizza-Deliveries')
     end
 
-    Jobs[Player.PlayerData.citizenid] = nil
+    Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid] = nil
 end)
 
 RegisterNetEvent('LENT-PizzaJob:Server:RemoveAllZones', function(PlayerCitizenId)
@@ -143,7 +143,7 @@ end)
 
 RegisterNetEvent('LENT-PizzaJob:Server:TipPlayer', function()
     local src = source
-    if Jobs[Player.PlayerData.citizenid] ~= nil then
+    if Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid] ~= nil then
         local Player = QBCore.Functions.GetPlayer(src)
 
         local Tip = Config.ResourceSettings['Payment']['TipsAmount']
@@ -157,10 +157,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:TipPlayer', function()
 end)
 
 -- [[ Functions ]] --
-function GetLocationInfo(src)
-    local src = source
-    local _ = QBCore.Functions.GetPlayer(src)
-
+function GetLocationInfo()
     local data = Config.ResourceSettings['DeliveryData'][math.random(#Config.ResourceSettings['DeliveryData'])]
     local coords = data.Coords[math.random(#data.Coords)]
     local payment = data.Payment

@@ -72,9 +72,6 @@ Config.ResourceSettings = {
 }
 
 function Notify(clsv, text, type, time)
-    -- What does clsv stand for?
-    -- Client / Server | Why sv..? I don't know sounds better
-    -- Don't bully me... I try my best okay!
     local time = time or 2500
     if clsv == 'client' or clsv == 'cl' then
         if Config.QBCoreSettings['Notify'] == 'qb' then

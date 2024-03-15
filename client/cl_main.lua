@@ -269,7 +269,7 @@ CreateThread(function()
 
     exports['qb-target']:AddTargetEntity(PizzaThisPed, {
         options = {
-            { -- Create Group & Such
+            { -- Create Job
                 icon = 'fas fa-circle',
                 label = 'Request Job',
                 canInteract = function()
