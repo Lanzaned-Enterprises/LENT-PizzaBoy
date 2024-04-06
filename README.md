@@ -2,6 +2,7 @@
 *Are you tired of running from the police? Trying to get away with crime that you have no success in? Well fear not! `Pizza This` a well known Pizza Franchise in San Andreas has been looking for some help! Deliver the pizza's to the people of San Andreas and make that money!*
 
 ## Dependencies
+- [LENT-Library](https://github.com/Lanzaned-Enterprises/LENT-Library) ***(REQUIRED)***
 - [Renewed-Banking](github.com/Renewed-Scripts/Renewed-Banking/releases) (optional)
 - [Admiral Car Pack](https://www.gta5-mods.com/vehicles/dundreary-admiral-classic-mini-pack-lods-addon-sp-template-lore-friendly) (optional)
 

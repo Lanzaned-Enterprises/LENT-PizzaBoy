@@ -9,8 +9,6 @@ Config.LENTSettings = {
 }
 
 Config.QBCoreSettings = {
-    ['Notify'] = 'qb', -- qb, ps, custom
-    ['Phone'] = 'qb', -- qb, gks, qs, npwd
     ['Fuel'] = 'cdn-fuel',
     ['Renewed-Banking'] = true, -- If Bank is true it will generate transactions
 }
@@ -70,21 +68,3 @@ Config.ResourceSettings = {
         ['TipsChance'] = 30,
     },
 }
-
-function Notify(clsv, text, type, time)
-    local time = time or 2500
-    if clsv == 'client' or clsv == 'cl' then
-        if Config.QBCoreSettings['Notify'] == 'qb' then
-            QBCore.Functions.Notify(text, type, time)
-        elseif Config.QBCoreSettings['Notify'] == 'ps' then
-            exports['ps-ui']:Notify(text, type, time)
-        elseif Config.QBCoreSettings['Notify'] == 'custom' then
-            -- Create Custom Notify
-        end
-    elseif clsv == 'server' or clsv == 'sv' then
-        local src = source
-        TriggerClientEvent('LENT-PizzaBoy:Client:SendNotify', src, text, type, time)
-    else
-        print('Invalid CLSV Argument passed!')
-    end
-end

@@ -9,8 +9,6 @@ Config.LENTSettings = {
 
 ```lua
 Config.QBCoreSettings = {
-    ['Notify'] = 'qb', -- qb, ps, custom
-    ['Phone'] = 'qb', -- qb, gks, qs, npwd
     ['Fuel'] = 'cdn-fuel',
     ['Renewed-Banking'] = true, -- If Bank is true it will generate transactions
 }

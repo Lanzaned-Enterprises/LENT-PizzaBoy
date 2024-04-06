@@ -35,10 +35,6 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
-RegisterNetEvent('LENT-PizzaBoy:Client:SendNotify', function(text, type, time)
-    Notify('cl', text, type, time)
-end)
-
 RegisterNetEvent('LENT-PizzaJob:Client:CreateJob', function()
     local vehicleHash = Config.ResourceSettings['JobData']['Vehicle']['Model']
     QBCore.Functions.LoadModel(vehicleHash)
@@ -153,10 +149,10 @@ RegisterNetEvent('LENT-PizzaJob:Client:DeliverPizza', function(PlayerCitizenId)
         end
 
 
-        Notify('cl', 'You delivered the Pizza!', 'success')
+        exports['LENT-Library']:SendNotification('You delivered the Pizza!', 'success')
     end, function() -- Play When Cancel
         ExecuteCommand('e c')
-        Notify('cl', 'You cancelled the progress', 'error')
+        exports['LENT-Library']:SendNotification('You cancelled the progress', 'error')
     end)
 end)
 
@@ -165,7 +161,7 @@ RegisterNetEvent('LENT-PizzaJob:Client:GetPaySlip', function()
         TriggerServerEvent("LENT-PizzaJob:Server:ReturnVehicle", JobsDone)
         JobsDone = 0
     else
-        Notify('client', "You haven't done any work yet!", 'error')
+        exports['LENT-Library']:SendNotification("You haven't done any work yet!", 'error')
     end
 end)
 
@@ -208,46 +204,9 @@ end)
 
 RegisterNetEvent('LENT-PizzaJob:Client:SendPhone', function(event, Sender, Subject, Message)
     if event == 'email' then
-        SendPhoneEmail(Sender, Subject, Message)
+        exports['LENT-Library']:SendPhoneEmail(Sender, Subject, Message)
     end
 end)
-
--- [[ Functions ]] --
-function SendPhoneEmail(Sender, Subject, Message)
-    local C = Config.QBCoreSettings['Phone']
-    if C == 'qb' then
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
-            sender = Sender,
-            subject = Subject,
-            message = Message,
-        })
-    elseif C == 'gks' then
-        local MailData = {
-            sender = Sender,
-            image = '/html/static/img/icons/mail.png',
-            subject = Subject,
-            message = Message
-          }
-          exports["gksphone"]:SendNewMail(MailData)
-    elseif C == 'qs' then
-        TriggerServerEvent('qs-smartphone:server:sendNewMail', {
-            sender = Sender,
-            subject = Subject,
-            message = Message,
-        })
-    elseif C == 'npwd' then
-        exports["npwd"]:createNotification({
-            notisId = "LENT:EMAIL",
-            appId = "EMAIL",
-            content = Message,
-            secondaryTitle = Sender,
-            keepOpen = false,
-            duration = 5000,
-            path = "/email",
-        })
-    end
-end
-
 
 -- [[ Threads ]] --
 CreateThread(function()
