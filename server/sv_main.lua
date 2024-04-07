@@ -3,6 +3,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 -- [[ Variables ]] --
 local Jobs = {}
+local NewPayment
 
 -- [[ Resource Metadata ]] --
 
@@ -16,7 +17,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:StartJob', function()
         if Player.PlayerData.job.name == Config.ResourceSettings['Job']['JobName'] then
             TriggerEvent('LENT-PizzaJob:Server:StartJobProcess', src)
         else
-            Notify('sv', 'You are not employed by `Pizza This..`!', 'error')
+            exports['LENT-Library']:ServerNotification('You are not employed by `Pizza This..`!', 'error')
         end
     else
         TriggerEvent('LENT-PizzaJob:Server:StartJobProcess', src)
@@ -68,7 +69,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:NewJob', function(source)
     local coords, payment = GetLocationInfo()
 
     Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation'] = coords
-    Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] = payment
+    NewPayment = Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment'] + payment
 
     local BlipCoords = Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['HouseLocation']
     local PlayerCitizenId = QBCore.Functions.GetPlayer(src).PlayerData.citizenid
@@ -99,6 +100,11 @@ end)
 RegisterNetEvent('LENT-PizzaJob:Server:GetPayment', function(source, JobsDone)
     local src = source
     JobsDone = tonumber(JobsDone)
+
+    if JobsDone == 0 then
+        Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid] = nil
+        return
+    end
 
     local bonus = 0
     local pay = Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid]['Payment']
@@ -149,8 +155,8 @@ RegisterNetEvent('LENT-PizzaJob:Server:TipPlayer', function()
         local Tip = Config.ResourceSettings['Payment']['TipsAmount']
 
         Player.Functions.AddMoney('cash', Tip)
-        Notify('sv', "You just made: " .. Tip .. " In tips!", "success", 2500)
-        TriggerClientEvent('LENT-PizzaJob:Client:SendPhone', src, 'email', 'Pizza This', 'Tips', 'You\'ve received: $' ..Tip.. ' from the customer! Put that in your pocket and keep it safe!')
+        exports['LENT-Library']:SendNotification("You just made: " .. Tip .. " In tips!", "success", 2500)
+        exports['LENT-Library']:SendServerPhoneEmail('Pizza This', 'Tips', 'You\'ve received: $' ..Tip.. ' from the customer! Put that in your pocket and keep it safe!')
     else
         return
     end
