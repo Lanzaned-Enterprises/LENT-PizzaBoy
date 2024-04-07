@@ -101,7 +101,7 @@ RegisterNetEvent('LENT-PizzaJob:Server:GetPayment', function(source, JobsDone)
     local src = source
     JobsDone = tonumber(JobsDone)
 
-    if JobsDone = 0 then
+    if JobsDone == 0 then
         Jobs[QBCore.Functions.GetPlayer(src).PlayerData.citizenid] = nil
         return
     end
